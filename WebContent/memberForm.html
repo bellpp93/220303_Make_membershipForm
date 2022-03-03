@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script>
+	function juminCheck(jumin1, jumin2) {
+		var juminNum = jumin1 + jumin2
+		
+		// 주민번호 체크 공식 적용 전에 먼저 정규표현식 (패턴)에 맞는지 체크한다.
+		var jumin_pattern = new RegExp('^[0-9]{6}[1234][0-9]{6}')
+		
+		if(!jumin_pattern.test(juminNum)){
+			alert('입력받은 주민번호가 정규표현식 패턴에 적합하지 않습니다!!')
+			return
+		} else {
+			alert('입력받은 주민번호가 정규표현식 패턴에 적합합니다.')
+			
+			var sum = 0
+			var temp = 0
+			var result = 0
+			var weight = new Array(2,3,4,5,6,7,8,9,2,3,4,5)
+			
+			// 주민번호 체크 공식 적용
+			for(i=0; i<12; i++) {
+				sum = sum + (juminNum.charAt(i))*weight[i]
+			}
+			
+			temp = 11-(sum%11)
+			result = temp%10
+			
+			if(result != juminNum.charAt(12)) {
+				alert('입력한 주민번호는 틀린 번호입니다!!')
+				document.juminForm.jumin_num1.focus()
+			} else {
+				alert('입력한 주민번호는 정상인 주민번호 입니다.')
+			}
+		}
+	}
+</script>
+<style>
+	p { text-align:center; }
+</style>
+</head>
+<body>
+	<p>
+		<b>회원가입</b>
+	</p>
+	<form>
+		<table width="800" border="1" cellspacing="0" cellpadding="0" 
+			   align="center" required autofocus>
+		<div align="right">
+			<b><font color="red">*</font>필수입력사항</b>
+		</div>
+			<tr>
+				<td colspan="2" bgcolor="orange" align="center">회원 기본 정보</td>
+			</tr>
+			<tr>
+				<td>아이디<font color="red">*</font></td>
+				<td>
+					<input type="text" size="30" name="member_id"
+						   required autocomplete="on"
+						   placeholder="6자 이상의 영문과 숫자"
+						   onClick="id"/>
+					<button>ID중복확인</button>
+				</td>
+			</tr>
+			<tr>
+				<td>비밀번호<font color="red">*</font></td>
+				<td>
+					<input type="text" size="30" name="member_passwd"/>
+					8~12자리의 영문 대소문자와 숫자, 특수문자로만 입력
+				</td>
+			</tr>
+			<tr>
+				<td>비밀번호확인<font color="red">*</font></td>
+				<td>
+					<input type="text" size="30" name="member_passwd"/>
+				</td>
+			</tr>
+			<tr>
+				<td>이름<font color="red">*</font></td>
+				<td>
+					<input type="text" size="30" name="member_name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>닉네임</td>
+				<td>
+					<input type="text" size="30" name="member_nickname"/>
+					2~10자리의 한글로만 입력
+				</td>
+			</tr>
+			<tr>
+				<td>이메일<font color="red">*</font></td>
+				<td>
+					<input type="text" name="email_id"/> @</label>
+					<input type="text" name="email_add" id="email_add"/>
+						<select name="email_select" id="email_select"
+								onchange="change_email();">
+							<option selected>직접입력</option>
+							<option value="naver.com">naver</option>
+							<option value="hanmail.net">daum</option>
+							<option value="gmail.com">gmail</option>
+							<option value="nate.com">nate</option>
+							<option value="kakao.com">kakao</option>
+							<option value="korea.com">korea</option>
+						</select>
+				</td>
+			</tr>
+			<tr>
+				<td>주민등록번호<font color="red">*</font></td>
+				<td>
+					<input type="text" name="jumin_num1" size="6"
+						   onKeyUp="if(this.value.length == 6) juminForm.jumin_num2.focus();"/> -
+					<input type="text" name="jumin_num2" size="7"/>
+		
+					<input type="button" value="주민번호 체크 버튼"
+			   			   onClick="juminCheck(jumin_num1.value, jumin_num2.value)"/>
+				</td>
+			</tr>
+			<tr>
+				<td>휴대폰<font color="red">*</font></td>
+				<td>
+					<input type="text" size="30" name="member_phoneNum"/>
+					예)010-1234-5678
+				</td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td>
+					<input type="radio" name="member_male"/> 남성
+					<input type="radio" name="member_female"/> 여성
+				</td>
+			</tr>
+			<tr>
+				<td>생년월일<font color="red">*</font></td>
+				<td>
+					<select name="birthday_year">
+	    			<option selected>년</option>
+       						 <option>2022</option>
+       						 <option>2021</option>
+     						 <option>2020</option>
+      						 <option>2019</option>
+      						 <option>2018</option>
+      						 <option>2017</option>
+      						 <option>2016</option>
+      						 <option>2015</option>
+      						 <option>2014</option>
+      						 <option>2013</option>
+      						 <option>2012</option>
+      						 <option>2011</option>
+      						 <option>2010</option>
+     					 </select>
+     					 <select>
+       						 <option selected>월</option>
+       						 <option>1</option>
+       						 <option>2</option>
+     						 <option>3</option>
+      						 <option>4</option>
+      						 <option>5</option>
+      						 <option>6</option>
+      						 <option>7</option>
+      						 <option>8</option>
+      						 <option>9</option>
+      						 <option>10</option>
+      						 <option>11</option>
+      						 <option>12</option>
+     					 </select>
+     					 <select>
+       						 <option selected>일</option>
+       						 <option>1</option>
+       						 <option>2</option>
+     						 <option>3</option>
+      						 <option>4</option>
+      						 <option>5</option>
+      						 <option>6</option>
+      						 <option>7</option>
+      						 <option>8</option>
+      						 <option>9</option>
+      						 <option>10</option>
+      						 <option>11</option>
+      						 <option>12</option>
+      						 <option>13</option>
+      						 <option>14</option>
+      						 <option>15</option>
+      						 <option>16</option>
+      						 <option>17</option>
+      						 <option>18</option>
+      						 <option>19</option>
+      						 <option>20</option>
+      						 <option>21</option>
+      						 <option>22</option>
+      						 <option>23</option>
+      						 <option>24</option>
+      						 <option>25</option>
+      						 <option>26</option>
+      						 <option>27</option>
+      						 <option>28</option>
+      						 <option>29</option>
+      						 <option>30</option>
+      						 <option>31</option>
+     					 </select>
+				</td>
+			</tr>
+			<tr>
+				<td>직업<font color="red">*</font></td>
+				<td>
+					<select name="job">
+	    				<option selected>직업선택</option>
+	    				<option value="100">회사원</option>
+	    				<option value="200">선생님</option>
+	    				<option value="300">학생</option>
+	    				<option value="400">군인</option>
+	    				<option value="500">의사</option>
+	    				<option value="600">공무원</option>
+	    				<option value="700">프리랜서</option>
+	    				<option value="800">기타</option>
+	    			</select>
+				</td>
+			</tr>
+			<tr>
+				<td>주소<font color="red">*</font></td>
+				<td>
+					<input type="text" name="user_name"
+						   required autocomplete="on"
+						   placeholder="우편번호"/>
+					<button>우편번호찾기</button>
+					<br />
+					<input type="text" size="90" id="address_kakao" name="address" readonly
+						   required autocomplete="on"
+						   placeholder="주소"/>
+					<br />
+					<input type="text" size="45" name="address_detail01"
+						   required autocomplete="on"
+						   placeholder="참고항목(도로명인 경우: 지역 동이름과 아파트 이름)"/>
+					<input type="text" size="45" name="address_detail02"
+						   required autocomplete="on"
+						   placeholder="상세주소(아파트 동호수 또는 빌딩이름 입력요!)"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+	    			<input type="submit" value="회원가입 등록"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    			<input type="reset" value="다시쓰기"/>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
